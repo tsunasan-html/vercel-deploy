@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import usePrice from '../../hooks/UsePrice';
 
 const priceItems = [
-  { price: 10000, label: "1,000円" },
-  { price: 20000, label: "2,000円" },
-  { price: 30000, label: "3,000円" },
-  { price: 40000, label: "4,000円" },
-  { price: 50000, label: "5,000円" },
-  { price: 60000, label: "6,000円" }
+  { price: 10000, label: "10,000円" },
+  { price: 20000, label: "20,000円" },
+  { price: 30000, label: "30,000円" },
+  { price: 40000, label: "40,000円" },
+  { price: 50000, label: "50,000円" },
 ];
 
 const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
@@ -41,7 +40,6 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
                 <th className="grey_under">6回</th>
                 <th className="grey_under">12回</th>
                 <th className="grey_under">18回</th>
-                <th className="grey_under">24回</th>
               </tr>
               <tr>
                 <td rowSpan="2" className="grey05">3部位</td>
@@ -71,7 +69,6 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
                 <td className="under_text"><small>3,000円</small></td>
                 <td className="under_text"><small>4,000円</small></td>
                 <td className="under_text"><small>5,000円</small></td>
-                <td className="under_text"><small>6,000円</small></td>
               </tr>
             </tbody>
           </table>
