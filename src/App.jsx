@@ -8,59 +8,69 @@ import TotalPrice from "./components/TotalPrice";
 import "./App.css"; 
 
 const App = () => {
-  const [selectedAreas, setSelectedAreas] = useState([1]);  // 初期選択エリア
-  const [datsumoTotal, setDatsumoTotal] = useState(0); 
-  const [skincareTotal, setSkincareTotal] = useState(0); 
+  const [selectedArea, setSelectedArea] = useState(1);
+  const [datsumoTotal, setDatsumoTotal] = useState(0);
+  const [skincareTotal, setSkincareTotal] = useState(0);
+  const [activeButton, setActiveButton] = useState(1);
 
-  // Datsumoの合計を更新
+  const [resetDatsumo, setResetDatsumo] = useState(false);
+  const [resetSkincare, setResetSkincare] = useState(false);
+
   const onDatsumoTotalChange = (newTotalPrice) => {
     setDatsumoTotal(newTotalPrice);
   };
 
-  // Skincareの合計を更新
   const onSkincareTotalChange = (newTotalPrice) => {
     setSkincareTotal(newTotalPrice);
   };
 
-  // 総合計 (脱毛 + スキンケア)
   const grandTotal = datsumoTotal + skincareTotal;
 
-  // エリアを表示するための関数
   const toggleVisibility = (areaNumber) => {
-    setSelectedAreas((prevSelectedAreas) => {
-      if (prevSelectedAreas.includes(areaNumber)) {
-        return prevSelectedAreas.filter((area) => area !== areaNumber);
-      } else {
-        return [...prevSelectedAreas, areaNumber];
-      }
-    });
+    setSelectedArea(areaNumber);
+    setActiveButton(areaNumber);
+  };
+
+  const resetDatsumoTotal = () => {
+    setDatsumoTotal(0);
+    setResetDatsumo(true);
+    setTimeout(() => setResetDatsumo(false), 0);
+  };
+
+  const resetSkincareTotal = () => {
+    setSkincareTotal(0);
+    setResetSkincare(true);
+    setTimeout(() => setResetSkincare(false), 0);
   };
 
   return (
     <>
       <HeadComponent />
       <div>
-        <TopBtn onClickButton={toggleVisibility} />
-        <p style={{ marginLeft: "0.8rem" }}>※料金は全て架空のものとなります。</p>
-        
+        <TopBtn onClickButton={toggleVisibility} activeButton={activeButton} />
+        <p style={{ marginLeft: "0.8rem" }}>
+          ※料金は全て架空のものとなります。
+        </p>
         <div className="flex_main">
           <div className="flex1">
-            {selectedAreas.includes(1) && (
+            {selectedArea === 1 && (
               <div id="area1">
-                <Datsumo onTotalPriceChange={onDatsumoTotalChange} />
+                <Datsumo onTotalPriceChange={onDatsumoTotalChange} resetDatsumo={resetDatsumo} />
               </div>
             )}
-            {selectedAreas.includes(2) && (
+            {selectedArea === 2 && (
               <div id="area2">
-                <Skincare onTotalPriceChange={onSkincareTotalChange} />
+                <Skincare onTotalPriceChange={onSkincareTotalChange} resetSkincare={resetSkincare} />
               </div>
             )}
           </div>
           <div className="flex2">
-            <TotalPrice 
-              datsumoTotal={datsumoTotal} 
-              skincareTotal={skincareTotal} 
-              grandTotal={grandTotal} 
+            <TotalPrice
+              datsumoTotal={datsumoTotal}
+              skincareTotal={skincareTotal}
+              grandTotal={grandTotal}
+              resetDatsumoTotal={resetDatsumoTotal}
+              resetSkincareTotal={resetSkincareTotal}
             />
           </div>
         </div>

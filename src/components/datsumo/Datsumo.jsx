@@ -10,10 +10,17 @@ const priceItems = [
   { price: 60000, label: "6,000円" }
 ];
 
-const Datsumo = ({ onTotalPriceChange }) => {
-  const { totalPrice, checkedItems, handleCheckboxChange } = usePrice();
+const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
+  const { totalPrice, checkedItems, handleCheckboxChange, resetPrice } = usePrice();
 
-  // 合計金額が変わる度に親コンポーネントに通知
+  // リセットフラグがtrueなら内部状態をリセット
+  useEffect(() => {
+    if (resetDatsumo) {
+      resetPrice();
+    }
+  }, [resetDatsumo, resetPrice]);
+
+  // 内部のtotalPriceが変わるたびに親に通知
   useEffect(() => {
     onTotalPriceChange(totalPrice);
   }, [totalPrice, onTotalPriceChange]);
@@ -26,18 +33,16 @@ const Datsumo = ({ onTotalPriceChange }) => {
             <tbody>
               <tr>
                 <td className="gold" rowSpan="2">平日 脱毛</td>
-                <td className="sample-td" colSpan="4">回数</td>
-                <td className="sample-td right" colSpan="2">コース後</td>
+                <td className="sample-td" colSpan="6">回数</td>
               </tr>
               <tr>
                 <th className="grey_under">1回</th>
+                <th className="grey_under">3回</th>
                 <th className="grey_under">6回</th>
                 <th className="grey_under">12回</th>
                 <th className="grey_under">18回</th>
-                <th className="grey_under">コース後1回</th>
-                <th className="grey_under grey_underDatsumo">コース後1回<span><small>12回・18回</small></span></th>
+                <th className="grey_under">24回</th>
               </tr>
-
               <tr>
                 <td rowSpan="2" className="grey05">3部位</td>
                 {priceItems.map((item, index) => (
@@ -45,22 +50,21 @@ const Datsumo = ({ onTotalPriceChange }) => {
                     <input
                       type="checkbox"
                       id={`checkbox-${item.price}`}
-                      className="allPrice datsumoAll datsumo01 D_ClickGroup101"
+                      className="allPrice datsumoAll datsumo01"
                       data-price={item.price}
                       onChange={(e) => handleCheckboxChange(e, item.price)}
-                      checked={checkedItems.includes(item.price)}
+                      checked={checkedItems === item.price}
                       style={{ display: 'none' }}
                     />
                     <label
                       htmlFor={`checkbox-${item.price}`}
-                      className={checkedItems.includes(item.price) ? 'selected' : ''}
+                      className={checkedItems === item.price ? 'selected' : ''}
                     >
                       <span className="coursePrice">{item.label}</span>
                     </label>
                   </td>
                 ))}
               </tr>
-
               <tr>
                 <td className="under_text"><small>1,000円</small></td>
                 <td className="under_text"><small>2,000円</small></td>

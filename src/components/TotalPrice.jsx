@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TotalPrice = ({ datsumoTotal, skincareTotal, grandTotal }) => {
+const TotalPrice = ({ datsumoTotal, skincareTotal, grandTotal, resetDatsumoTotal, resetSkincareTotal }) => {
   const formatPrice = (price) => new Intl.NumberFormat().format(price);
 
   return (
@@ -25,12 +25,23 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, grandTotal }) => {
             <span className="datsumoAll">{formatPrice(datsumoTotal)}</span>
             <span className="yen">円</span>
           </div>
+          <div className="childDis">
+            <button onClick={resetDatsumoTotal}>
+               Reset
+            </button>
+          </div>
+          
         </div>
         <div className="flex_dis bgcDis1">
           <div className="childDis">スキンケア</div>
           <div className="childDis">
             <span className="skincareAll">{formatPrice(skincareTotal)}</span>
             <span className="yen">円</span>
+          </div>
+          <div className="childDis">
+            <button onClick={resetSkincareTotal}>
+                Reset
+            </button>
           </div>
         </div>
       </div>

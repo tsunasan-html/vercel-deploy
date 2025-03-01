@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import usePrice from '../../hooks/UsePrice';
 
-const Skincare = ({ onTotalPriceChange }) => {
-  const { totalPrice, checkedItems, handleCheckboxChange } = usePrice();
+const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
+  const { totalPrice, checkedItems, handleCheckboxChange, resetPrice } = usePrice();
 
   useEffect(() => {
-    onTotalPriceChange(totalPrice);  // totalPriceを親に渡す
+    if (resetSkincare) {
+      resetPrice();
+    }
+  }, [resetSkincare, resetPrice]);
+
+  useEffect(() => {
+    onTotalPriceChange(totalPrice);
   }, [totalPrice, onTotalPriceChange]);
 
   const skincareItems = [
@@ -23,7 +29,7 @@ const Skincare = ({ onTotalPriceChange }) => {
           <table className="paymentTable skincare" border="1">
             <tbody>
               <tr className="skincare01__tr">
-                <td className="gold gold__skincare" rowSpan="" colSpan="4">スキンケア 平日</td>
+                <td className="gold gold__skincare" colSpan="4">スキンケア 平日</td>
                 <th className="grey_under">1回</th>
                 <th className="grey_under">3回コース</th>
                 <th className="grey_under">6回コース</th>
@@ -31,7 +37,7 @@ const Skincare = ({ onTotalPriceChange }) => {
                 <th className="grey_under">18回コース</th>
               </tr>
               <tr>
-                <td rowSpan="2" colSpan="4" className="grey05">
+                <td colSpan="4" rowSpan="2" className="grey05">
                   <span className="Block05">ハイドラ毛穴洗浄</span>
                 </td>
                 {skincareItems.map((item, index) => (
@@ -39,14 +45,15 @@ const Skincare = ({ onTotalPriceChange }) => {
                     <input
                       type="checkbox"
                       id={`skincare-checkbox-${item.price}`}
-                      className="allPrice skincare01 skincare_ClickGroup101"
+                      className="allPrice skincare01"
                       data-price={item.price}
-                      onChange={(e) => handleCheckboxChange(e, item.price)}  
+                      onChange={(e) => handleCheckboxChange(e, item.price)}
+                      checked={checkedItems === item.price}
                       style={{ display: 'none' }}
                     />
                     <label
                       htmlFor={`skincare-checkbox-${item.price}`}
-                      className={checkedItems.includes(item.price) ? 'selected' : ''} 
+                      className={checkedItems === item.price ? 'selected' : ''}
                     >
                       <span className="coursePrice">{item.label}</span>
                     </label>
@@ -54,7 +61,6 @@ const Skincare = ({ onTotalPriceChange }) => {
                 ))}
               </tr>
               <tr>
-
                 <td className="under_text"><small>1,000円</small></td>
                 <td className="under_text"><small>2,000円</small></td>
                 <td className="under_text"><small>3,000円</small></td>
@@ -65,11 +71,6 @@ const Skincare = ({ onTotalPriceChange }) => {
           </table>
         </div>
       </form>
-      
-      {/* 合計金額の表示部分 */}
-      {/* <div className="total-price">
-        <h3>合計金額: {totalPrice.toLocaleString()}円</h3>
-      </div> */}
     </section>
   );
 };

@@ -1,26 +1,31 @@
+import { useState, useCallback } from 'react';
 
-import { useState } from 'react';
-
-const UsePrice = () => {
+const usePrice = () => {
   const [totalPrice, setTotalPrice] = useState(0);
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState(null); 
 
   const handleCheckboxChange = (e, price) => {
-    let updatedCheckedItems;
     if (e.target.checked) {
-      updatedCheckedItems = [...checkedItems, price];
+      setCheckedItems(price);
+      setTotalPrice(price);
     } else {
-      updatedCheckedItems = checkedItems.filter(item => item !== price);
+      setCheckedItems(null);
+      setTotalPrice(0);
     }
-    setCheckedItems(updatedCheckedItems);
-    setTotalPrice(updatedCheckedItems.reduce((acc, item) => acc + item, 0));
   };
+
+  // 内部状態をリセットする関数
+  const resetPrice = useCallback(() => {
+    setCheckedItems(null);
+    setTotalPrice(0);
+  }, []);
 
   return {
     totalPrice,
     checkedItems,
-    handleCheckboxChange
+    handleCheckboxChange,
+    resetPrice
   };
 };
 
-export default UsePrice;
+export default usePrice;
