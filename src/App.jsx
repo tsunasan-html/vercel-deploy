@@ -5,7 +5,7 @@ import Datsumo from "./components/datsumo/Datsumo";
 import Skincare from "./components/skincare/Skincare"; 
 import TotalPrice from "./components/TotalPrice"; 
 
-import "./app.css"; 
+import "./App.css"; 
 
 const App = () => {
   const [selectedAreas, setSelectedAreas] = useState([1]);  // 初期選択エリア
