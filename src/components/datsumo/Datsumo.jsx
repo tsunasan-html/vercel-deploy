@@ -31,7 +31,7 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
           <table className="paymentTable" border="1">
             <tbody>
               <tr>
-                <td className="gold" rowSpan="2">平日 脱毛</td>
+                <td className="gold" rowSpan="2">脱毛</td>
                 <td className="sample-td" colSpan="6">回数</td>
               </tr>
               <tr>

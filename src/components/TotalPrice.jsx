@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkincareTotal }) => {
+const TotalPrice = ({
+  datsumoTotal,
+  skincareTotal,
+  agaTotal,
+  resetDatsumoTotal,
+  resetSkincareTotal,
+  resetAgaTotal
+}) => {
   const [paymentTimes, setPaymentTimes] = useState(''); // 初期値を空に設定
-  const [divisionTotal, setDivisionTotal] = useState(datsumoTotal); // 初期値はdatsumoTotalで開始
+  const [datsumoDivisionTotal, setDatsumoDivisionTotal] = useState(datsumoTotal); 
+  const [skincareDivisionTotal, setSkincareDivisionTotal] = useState(skincareTotal); 
+  const [agaDivisionTotal, setAgaDivisionTotal] = useState(agaTotal);
 
   const formatPrice = (price) => new Intl.NumberFormat().format(price);
 
@@ -20,7 +29,6 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
     return (i * 100) / (h * 100);
   };
 
-  // divisionTotalの更新
   useEffect(() => {
     const rate = {
       1: 0,
@@ -35,27 +43,65 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
       84: 24.74,
     };
 
-    let updatedDivisionTotal = datsumoTotal;
-
+    let updatedDatsumoDivisionTotal = datsumoTotal;
     if (paymentTimes !== '') {
       const priceSum = datsumoTotal;
       const rateValue = rate[paymentTimes] || 0;
 
-      let o = f(priceSum, 1); // oはfで調整された価格
-      const m = f(o, g(rateValue, 100)); // 利率を掛けてさらに調整
-      const h = o + m; // 基本価格 + 追加料金
-      let k = g(h, paymentTimes); // 支払回数で調整
-      let finalPrice = Math.floor(g(k, 100)) * 100; // 最終的に100で丸める
+      let o = f(priceSum, 1); 
+      const m = f(o, g(rateValue, 100)); 
+      const h = o + m; 
+      let k = g(h, paymentTimes);
+      let finalPrice = Math.floor(g(k, 100)) * 100;
 
       if (paymentTimes === '1') {
         finalPrice = k;
       }
 
-      updatedDivisionTotal = finalPrice;
+      updatedDatsumoDivisionTotal = finalPrice;
     }
 
-    setDivisionTotal(updatedDivisionTotal);
-  }, [paymentTimes, datsumoTotal]);
+    let updatedSkincareDivisionTotal = skincareTotal;
+    if (paymentTimes !== '') {
+      const priceSum = skincareTotal;
+      const rateValue = rate[paymentTimes] || 0;
+
+      let o = f(priceSum, 1); 
+      const m = f(o, g(rateValue, 100)); 
+      const h = o + m; 
+      let k = g(h, paymentTimes);
+      let finalPrice = Math.floor(g(k, 100)) * 100;
+
+      if (paymentTimes === '1') {
+        finalPrice = k;
+      }
+
+      updatedSkincareDivisionTotal = finalPrice;
+    }
+
+    // Aga
+    let updatedAgaDivisionTotal = agaTotal;
+    if (paymentTimes !== '') {
+      const priceSum = agaTotal;
+      const rateValue = rate[paymentTimes] || 0;
+
+      let o = f(priceSum, 1); 
+      const m = f(o, g(rateValue, 100)); 
+      const h = o + m; 
+      let k = g(h, paymentTimes);
+      let finalPrice = Math.floor(g(k, 100)) * 100;
+
+      if (paymentTimes === '1') {
+        finalPrice = k;
+      }
+
+      updatedAgaDivisionTotal = finalPrice;
+    }
+
+    setDatsumoDivisionTotal(updatedDatsumoDivisionTotal);
+    setSkincareDivisionTotal(updatedSkincareDivisionTotal);
+    setAgaDivisionTotal(updatedAgaDivisionTotal);
+  }, [paymentTimes, datsumoTotal, skincareTotal, agaTotal]);
 
   // リセットボタンがクリックされたときの処理
   const handleResetDatsumoTotal = () => {
@@ -68,6 +114,11 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
     setPaymentTimes(''); // 支払回数を初期化
   };
 
+  const handleResetAgaTotal = () => {
+    resetAgaTotal();
+    setPaymentTimes(''); // 支払回数を初期化
+  };
+
   return (
     <div>
       <div className="resultBox">
@@ -77,7 +128,9 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
               <th>総合計</th>
             </tr>
             <tr>
-              <td className="yen"><span id="totalPrice">{formatPrice(datsumoTotal + skincareTotal)}円</span></td>
+              <td className="yen">
+                <span id="totalPrice">{formatPrice(datsumoTotal + skincareTotal + agaTotal)}円</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -103,7 +156,9 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
               <th className="total_price">
                 <span className="font_Righttext">分割料金</span>
                 <br />
-                <span className="divisionTotal">{formatPrice(divisionTotal)}</span>
+                <span className="divisionTotal">
+                  {formatPrice(datsumoDivisionTotal + skincareDivisionTotal + agaDivisionTotal)}
+                </span>
                 <span className="yen">円</span>
               </th>
             </tr>
@@ -131,6 +186,17 @@ const TotalPrice = ({ datsumoTotal, skincareTotal, resetDatsumoTotal, resetSkinc
           </div>
           <div className="childDis">
             <button onClick={handleResetSkincareTotal}>Reset</button>
+          </div>
+        </div>
+
+        <div className="flex_dis bgcDis1">
+          <div className="childDis">AGA</div>
+          <div className="childDis">
+            <span className="agaAll">{formatPrice(agaTotal)}</span>
+            <span className="yen">円</span>
+          </div>
+          <div className="childDis">
+            <button onClick={handleResetAgaTotal}>Reset</button>
           </div>
         </div>
       </div>

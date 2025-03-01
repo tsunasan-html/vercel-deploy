@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeadComponent from "./components/Head";
 import TopBtn from "./components/TopBtn";
 import Datsumo from "./components/datsumo/Datsumo"; 
 import Skincare from "./components/skincare/Skincare"; 
+import Aga from "./components/aga/Aga";
 import TotalPrice from "./components/TotalPrice"; 
 
 import "./App.css"; 
@@ -11,10 +12,12 @@ const App = () => {
   const [selectedArea, setSelectedArea] = useState(1);
   const [datsumoTotal, setDatsumoTotal] = useState(0);
   const [skincareTotal, setSkincareTotal] = useState(0);
+  const [agaTotal, setAgaTotal] = useState(0);
   const [activeButton, setActiveButton] = useState(1);
 
   const [resetDatsumo, setResetDatsumo] = useState(false);
   const [resetSkincare, setResetSkincare] = useState(false);
+  const [resetAga, setResetAga] = useState(false);
 
   const onDatsumoTotalChange = (newTotalPrice) => {
     setDatsumoTotal(newTotalPrice);
@@ -24,7 +27,11 @@ const App = () => {
     setSkincareTotal(newTotalPrice);
   };
 
-  const grandTotal = datsumoTotal + skincareTotal;
+  const onAgaTotalChange = (newTotalPrice) => {
+    setAgaTotal(newTotalPrice);
+  };
+
+  const grandTotal = datsumoTotal + skincareTotal + agaTotal;
 
   const toggleVisibility = (areaNumber) => {
     setSelectedArea(areaNumber);
@@ -42,6 +49,13 @@ const App = () => {
     setResetSkincare(true);
     setTimeout(() => setResetSkincare(false), 0);
   };
+
+  const resetAgaTotal = () => {
+    setAgaTotal(0);
+    setResetAga(true);
+    setTimeout(() => setResetAga(false), 0);
+  };
+
 
   return (
     <>
@@ -63,14 +77,21 @@ const App = () => {
                 <Skincare onTotalPriceChange={onSkincareTotalChange} resetSkincare={resetSkincare} />
               </div>
             )}
+              {selectedArea === 3 && (
+                <div id="area3">
+                  <Aga onTotalPriceChange={onAgaTotalChange} resetAga={resetAga} />
+                </div>
+              )}
           </div>
           <div className="flex2">
             <TotalPrice
               datsumoTotal={datsumoTotal}
               skincareTotal={skincareTotal}
+              agaTotal={agaTotal}
               grandTotal={grandTotal}
               resetDatsumoTotal={resetDatsumoTotal}
               resetSkincareTotal={resetSkincareTotal}
+              resetAgaTotal={resetAgaTotal}
             />
           </div>
         </div>
