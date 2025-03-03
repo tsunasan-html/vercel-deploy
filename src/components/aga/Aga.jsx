@@ -15,10 +15,10 @@ const Aga = ({ onTotalPriceChange, resetAga }) => {
   }, [totalPrice, onTotalPriceChange]);
 
   const agaItems = [
-    { price: 10000, label: "1,000円" },
-    { price: 20000, label: "2,000円" },
-    { price: 30000, label: "3,000円" },
-    { price: 40000, label: "4,000円" }
+    { price: 10000, label: "10,000円" },
+    { price: 20000, label: "20,000円" },
+    { price: 30000, label: "30,000円" },
+    { price: 40000, label: "40,000円" }
   ];
 
   return (

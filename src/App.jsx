@@ -40,12 +40,19 @@ const App = () => {
   const toggleVisibility = (areaNumber) => {
     setActiveButtons((prevActiveButtons) => {
       if (prevActiveButtons.includes(areaNumber)) {
-        return prevActiveButtons.filter((button) => button !== areaNumber);
+        const updatedButtons = prevActiveButtons.filter((button) => button !== areaNumber);
+        
+        if (areaNumber === 1) setDatsumoTotal(0); 
+        if (areaNumber === 2) setSkincareTotal(0);
+        if (areaNumber === 3) setAgaTotal(0);
+        
+        return updatedButtons;
       } else {
         return [...prevActiveButtons, areaNumber];
       }
     });
   };
+  
 
   const resetDatsumoTotal = () => {
     setDatsumoTotal(0);
@@ -69,7 +76,6 @@ const App = () => {
     setIsLoggedIn(true); 
   };
 
-  // ログアウト処理
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false); 
@@ -88,7 +94,6 @@ const App = () => {
             </p>
             <div className="flex_main">
               <div className="flex1">
-                {/* Datsumo */}
                 {activeButtons.includes(1) && (
                   <div id="area1">
                     <Datsumo onTotalPriceChange={onDatsumoTotalChange} resetDatsumo={resetDatsumo} />
