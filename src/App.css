@@ -709,7 +709,7 @@
 
 .backWhiteAGA {
   background-color: #F7F7F7;
-  width: var(--width-tableAGA);
+  width: 198px;
   text-align: center;
   font-size: 14px;
 }
@@ -719,7 +719,7 @@
   padding: 6px;
   line-height: 1.4;
   background-color: #EBEBEB;
-  width: var(--width-tableAGA);
+  width: 168px
 }
 .secondAGA span {
   display: block;
@@ -736,7 +736,6 @@
 
 .grey_under1 {
   background-color: var(--grey-color);
-  width: var(--width-tableAGA);
   font-size: 13px;
 }
 
@@ -853,9 +852,7 @@
 .skincare .gold {
   font-size: 13px;
 }
-.skincare .grey_under {
-  width: 150px;
-}
+
 .skincare .skincare__remarksTd {
   padding: 5px 28px;
   font-size: 13px;
@@ -1489,11 +1486,6 @@ table {
   background: transparent;
 }
 
-.AGAPadding {
-  padding: 12px 0;
-  font-size: 14px;
-}
-
 .aga {
   margin-top: 2rem;
 }
@@ -1535,7 +1527,3 @@ table {
   font-weight: bold;
   display: inline;
 }
-
-.grey05__cosme {
-  width: 260px;
-}/*# sourceMappingURL=style.css.map */

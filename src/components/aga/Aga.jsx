@@ -28,11 +28,14 @@ const Aga = ({ onTotalPriceChange, resetAga }) => {
           <table className="paymentTable aga" border="1">
             <tbody>
               <tr>
-                <th className="gold AGAPadding" colSpan="2">フィナステリドセットコース</th>
-                <th className="grey_under1 AGAPadding">トライアル</th>
-                <th className="grey_under1 AGAPadding">1か月</th>
-                <th className="grey_under1 AGAPadding">6か月</th>
-                <th className="grey_under1 AGAPadding">12か月</th>
+                <th className="gold AGAPadding" rowSpan="2" colSpan="2">AGAセットコース</th>
+                <td className="sample-td" colSpan="6">回数</td>
+              </tr>
+              <tr>
+                <th className="grey_under">トライアル</th>
+                <th className="grey_under">1か月</th>
+                <th className="grey_under">6か月</th>
+                <th className="grey_under">12か月</th>
               </tr>
 
               <tr>
