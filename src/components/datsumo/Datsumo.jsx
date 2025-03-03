@@ -23,7 +23,7 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
   ];
 
   return (
-    <div id="area1">
+    <section id="datsumo01Display">
       <form className="tableMarginClass" action="/" method="get">
         <div className="courseList">
           <table className="paymentTable" border="1">
@@ -74,7 +74,7 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
           </table>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
