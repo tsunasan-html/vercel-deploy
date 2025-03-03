@@ -63,10 +63,10 @@ const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
                 ))}
               </tr>
               <tr>
-                <td className="under_text"><small>1,000円</small></td>
-                <td className="under_text"><small>2,000円</small></td>
-                <td className="under_text"><small>3,000円</small></td>
-                <td className="under_text"><small>4,000円</small></td>
+                <td className="under_text"><small>-</small></td>
+                <td className="under_text"><small>6,666円</small></td>
+                <td className="under_text"><small>5,000円</small></td>
+                <td className="under_text"><small>3,333円</small></td>
                 <td className="under_text"><small>5,000円</small></td>
               </tr>
             </tbody>
