@@ -14,7 +14,6 @@ const usePrice = () => {
     }
   };
 
-  // 内部状態をリセットする関数
   const resetPrice = useCallback(() => {
     setCheckedItems(null);
     setTotalPrice(0);

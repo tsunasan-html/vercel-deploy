@@ -1,28 +1,26 @@
 import React, { useEffect } from 'react';
 import usePrice from '../../hooks/UsePrice';
 
-const priceItems = [
-  { price: 10000, label: "10,000円" },
-  { price: 20000, label: "20,000円" },
-  { price: 30000, label: "30,000円" },
-  { price: 40000, label: "40,000円" },
-  { price: 50000, label: "50,000円" },
-];
-
 const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
   const { totalPrice, checkedItems, handleCheckboxChange, resetPrice } = usePrice();
 
-  // リセットフラグがtrueなら内部状態をリセット
   useEffect(() => {
     if (resetDatsumo) {
       resetPrice();
     }
   }, [resetDatsumo, resetPrice]);
 
-  // 内部のtotalPriceが変わるたびに親に通知
   useEffect(() => {
     onTotalPriceChange(totalPrice);
   }, [totalPrice, onTotalPriceChange]);
+
+  const datsumoItems = [
+    { price: 10000, label: "1,000円" },
+    { price: 20000, label: "2,000円" },
+    { price: 30000, label: "3,000円" },
+    { price: 40000, label: "4,000円" },
+    { price: 50000, label: "5,000円" },
+  ];
 
   return (
     <div id="area1">
@@ -41,21 +39,21 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
                 <th className="grey_under">12回</th>
                 <th className="grey_under">18回</th>
               </tr>
+
               <tr>
                 <td rowSpan="2" className="grey05">3部位</td>
-                {priceItems.map((item, index) => (
+                {datsumoItems.map((item, index) => (
                   <td key={index} className="checkData center_price">
                     <input
                       type="checkbox"
-                      id={`checkbox-${item.price}`}
-                      className="allPrice datsumoAll datsumo01"
+                      id={`datsumo-checkbox-${item.price}`}
+                      className="allPrice datsumo01"
                       data-price={item.price}
                       onChange={(e) => handleCheckboxChange(e, item.price)}
                       checked={checkedItems === item.price}
-                      style={{ display: 'none' }}
                     />
                     <label
-                      htmlFor={`checkbox-${item.price}`}
+                      htmlFor={`datsumo-checkbox-${item.price}`}
                       className={checkedItems === item.price ? 'selected' : ''}
                     >
                       <span className="coursePrice">{item.label}</span>
@@ -63,6 +61,7 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
                   </td>
                 ))}
               </tr>
+
               <tr>
                 <td className="under_text"><small>1,000円</small></td>
                 <td className="under_text"><small>2,000円</small></td>
@@ -70,6 +69,7 @@ const Datsumo = ({ onTotalPriceChange, resetDatsumo }) => {
                 <td className="under_text"><small>4,000円</small></td>
                 <td className="under_text"><small>5,000円</small></td>
               </tr>
+
             </tbody>
           </table>
         </div>

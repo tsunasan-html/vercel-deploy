@@ -19,7 +19,7 @@ const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
     { price: 20000, label: "2,000円" },
     { price: 30000, label: "3,000円" },
     { price: 40000, label: "4,000円" },
-    { price: 50000, label: "5,000円" }
+    { price: 50000, label: "5,000円" },
   ];
 
   return (
@@ -53,7 +53,6 @@ const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
                       data-price={item.price}
                       onChange={(e) => handleCheckboxChange(e, item.price)}
                       checked={checkedItems === item.price}
-                      style={{ display: 'none' }}
                     />
                     <label
                       htmlFor={`skincare-checkbox-${item.price}`}

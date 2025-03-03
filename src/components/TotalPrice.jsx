@@ -8,7 +8,7 @@ const TotalPrice = ({
   resetSkincareTotal,
   resetAgaTotal
 }) => {
-  const [paymentTimes, setPaymentTimes] = useState(''); // 初期値を空に設定
+  const [paymentTimes, setPaymentTimes] = useState(''); 
   const [datsumoDivisionTotal, setDatsumoDivisionTotal] = useState(datsumoTotal); 
   const [skincareDivisionTotal, setSkincareDivisionTotal] = useState(skincareTotal); 
   const [agaDivisionTotal, setAgaDivisionTotal] = useState(agaTotal);
@@ -79,7 +79,6 @@ const TotalPrice = ({
       updatedSkincareDivisionTotal = finalPrice;
     }
 
-    // Aga
     let updatedAgaDivisionTotal = agaTotal;
     if (paymentTimes !== '') {
       const priceSum = agaTotal;
@@ -103,20 +102,19 @@ const TotalPrice = ({
     setAgaDivisionTotal(updatedAgaDivisionTotal);
   }, [paymentTimes, datsumoTotal, skincareTotal, agaTotal]);
 
-  // リセットボタンがクリックされたときの処理
   const handleResetDatsumoTotal = () => {
     resetDatsumoTotal();
-    setPaymentTimes(''); // 支払回数を初期化
+    setPaymentTimes(''); 
   };
 
   const handleResetSkincareTotal = () => {
     resetSkincareTotal();
-    setPaymentTimes(''); // 支払回数を初期化
+    setPaymentTimes(''); 
   };
 
   const handleResetAgaTotal = () => {
     resetAgaTotal();
-    setPaymentTimes(''); // 支払回数を初期化
+    setPaymentTimes(''); 
   };
 
   return (

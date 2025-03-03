@@ -1,4 +1,3 @@
-// src/inc/Head.js
 import React from "react";
 
 const HeadComponent = () => {
