@@ -1,3 +1,151 @@
 .selected {
   background-color: #aceab5; /* 選択されたときの背景色 */
 }
+
+.position {
+  margin: 0;
+  height: 100vh;
+  position: relative; 
+}
+
+.header {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+.header img {
+  width: 60px;
+}
+
+.header p {
+  color: #282F32;
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.form {
+  width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form label {
+  display: block;
+  text-align: left;
+  color: #282F32;
+  font-size: 1em;
+}
+
+.form form .text-input {
+  overflow: hidden;
+  margin-bottom: .875em;
+}
+
+.form form input[type="text"],
+.form form input[type="password"] {
+  width: 100%;
+  padding: 1em 0 12px;
+  padding-left: 0;
+  background: none;
+  color: #282F32;
+  font-size: 1.2em;
+  font-weight: 400;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+
+.form form input[type="text"]:focus+.separator,
+.form form input[type="password"]:focus+.separator {
+  transform: scaleX(1) translateY(-2px);
+  opacity: 1;
+}
+
+.form form input[type="submit"] {
+  color: #f6f6f6;
+  background: #bba170;
+  padding: 0.8em 3.4em;
+  font-size: 1em;
+  border: none;
+  transition: 0.5s;
+  cursor: pointer;
+  border-radius: 100vh;
+border: 2px solid #bba170;
+}
+
+.form form input[type="submit"]:hover {
+  background: #f6f6f6;
+  color: #bba170;
+}
+
+.separator {
+  height: 2px;
+  width: 100%;
+  background: #bba170;
+  display: block;
+  transform: scaleX(0) translateY(-2px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: all 0.15s linear;
+}
+
+* :focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
+body {
+  font-family: 'Noto sans JP', Roboto;
+  background: #282F32;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #282F32;
+  /* 背景カラー */
+  z-index: 9999;
+  /* 一番手前に */
+  pointer-events: none;
+  /* 他の要素にアクセス可能にするためにポインターイベントは無効に */
+  opacity: 0;
+  /* 初期値 : 透過状態 */
+  -webkit-transition: opacity .8s ease;
+  /* アニメーション時間は 0.8秒 */
+  transition: opacity .8s ease;
+}
+
+.fadeout {
+  text-align: center;
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+}
+
+body.fadeout::after {
+  opacity: 1;
+}
+
+body.fadeout article {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+body a {
+  color: #3599FF;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.form-bottom {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

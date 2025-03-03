@@ -5,6 +5,7 @@ import Datsumo from "./components/datsumo/Datsumo";
 import Skincare from "./components/skincare/Skincare"; 
 import Aga from "./components/aga/Aga";
 import TotalPrice from "./components/TotalPrice"; 
+import Login from "./components/Login"; 
 
 import "./App.css"; 
 
@@ -16,6 +17,7 @@ const App = () => {
   const [resetDatsumo, setResetDatsumo] = useState(false);
   const [resetSkincare, setResetSkincare] = useState(false);
   const [resetAga, setResetAga] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   const onDatsumoTotalChange = (newTotalPrice) => {
     setDatsumoTotal(newTotalPrice);
@@ -63,54 +65,72 @@ const App = () => {
     setTimeout(() => setResetAga(false), 0);
   };
 
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true); 
+  };
+
+  // ログアウト処理
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false); 
+  };
+
   return (
     <>
       <HeadComponent />
       <div>
-        <TopBtn onClickButton={toggleVisibility} activeButtons={activeButtons} />
-        <p style={{ marginLeft: "0.8rem" }}>
-          ※料金は全て架空のものとなります。
-        </p>
-        <div className="flex_main">
-          <div className="flex1">
-            {/* Datsumo */}
-            {activeButtons.includes(1) && (
-              <div
-                id="area1"
-              >
-                <Datsumo onTotalPriceChange={onDatsumoTotalChange} resetDatsumo={resetDatsumo} />
-              </div>
-            )}
+        {isLoggedIn ? (
+          <>
+          <div className="inTable">
+            <TopBtn onClickButton={toggleVisibility} activeButtons={activeButtons} />
+            <p style={{ marginLeft: "0.8rem" }}>
+              ※料金は全て架空のものとなります。
+            </p>
+            <div className="flex_main">
+              <div className="flex1">
+                {/* Datsumo */}
+                {activeButtons.includes(1) && (
+                  <div id="area1">
+                    <Datsumo onTotalPriceChange={onDatsumoTotalChange} resetDatsumo={resetDatsumo} />
+                  </div>
+                )}
 
-            {activeButtons.includes(2) && (
-              <div
-                id="area2"
-              >
-                <Skincare onTotalPriceChange={onSkincareTotalChange} resetSkincare={resetSkincare} />
-              </div>
-            )}
+                {activeButtons.includes(2) && (
+                  <div id="area2">
+                    <Skincare onTotalPriceChange={onSkincareTotalChange} resetSkincare={resetSkincare} />
+                  </div>
+                )}
 
-            {activeButtons.includes(3) && (
-              <div
-                id="area3"
-              >
-                <Aga onTotalPriceChange={onAgaTotalChange} resetAga={resetAga} />
+                {activeButtons.includes(3) && (
+                  <div id="area3">
+                    <Aga onTotalPriceChange={onAgaTotalChange} resetAga={resetAga} />
+                  </div>
+                )}
               </div>
-            )}
+
+              <div className="flex2">
+                <TotalPrice
+                  datsumoTotal={datsumoTotal}
+                  skincareTotal={skincareTotal}
+                  agaTotal={agaTotal}
+                  grandTotal={grandTotal}
+                  resetDatsumoTotal={resetDatsumoTotal}
+                  resetSkincareTotal={resetSkincareTotal}
+                  resetAgaTotal={resetAgaTotal}
+                />
+                <div style={{ margin: '1.2rem 0.8rem', textAlign: 'right' }}>
+                  <button onClick={handleLogout} style={{ padding: '10px' }}>
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
-          
-          <div className="flex2">
-            <TotalPrice
-              datsumoTotal={datsumoTotal}
-              skincareTotal={skincareTotal}
-              agaTotal={agaTotal}
-              grandTotal={grandTotal}
-              resetDatsumoTotal={resetDatsumoTotal}
-              resetSkincareTotal={resetSkincareTotal}
-              resetAgaTotal={resetAgaTotal}
-            />
-          </div>
-        </div>
+          </>
+        ) : (
+          <Login onLoginSuccess={handleLoginSuccess} /> 
+        )}
       </div>
     </>
   );

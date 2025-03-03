@@ -1,4 +1,6 @@
+
 @charset "UTF-8";
+
 .totalTable th {
   background-color: #bba170;
   color: white;
@@ -1355,9 +1357,13 @@ nav .innerFirst ul .navArea__first-txt li:hover {
 }
 
 body {
-  margin: 0 2rem 2rem 2rem;
+  padding: 0;
+  margin: 0;
   background-color: var(--body-color);
   max-width: 1620px;
+}
+.inTable {
+  margin: 0 2rem 2rem 2rem;
 }
 
 @media screen and (max-width: 767px) {

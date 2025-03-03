@@ -29,10 +29,11 @@ const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
           <table className="paymentTable skincare" border="1">
             <tbody>
               <tr>
-                <td className="gold" colSpan="4" rowSpan="2">スキンケア</td>
+                <td className="gold" rowSpan="2">スキンケア</td>
                 <td className="sample-td" colSpan="6">回数</td>
               </tr>
-              <tr className="skincare01__tr">
+
+              <tr>
                
                 <th className="grey_under">1回</th>
                 <th className="grey_under">3回コース</th>
@@ -41,9 +42,7 @@ const Skincare = ({ onTotalPriceChange, resetSkincare }) => {
                 <th className="grey_under">18回コース</th>
               </tr>
               <tr>
-                <td colSpan="4" rowSpan="2" className="grey05">
-                  ハイドラ毛穴洗浄
-                </td>
+              <td rowSpan="2" className="grey05">3部位</td>
                 {skincareItems.map((item, index) => (
                   <td key={index} className="checkData center_price">
                     <input
